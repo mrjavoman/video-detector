@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Jul 24 18:02:13 2022
+# Make data base, printed on Sun Jul 24 20:52:29 2022
 
 # Variables
 
@@ -55,7 +55,7 @@ PATH = /home/xavi/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/bi
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-dbecfb14-e261-4714-86ac-9ab8289565d9.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-e52bce38-540f-4146-bf3d-8fcc574af863.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -69,7 +69,7 @@ PWD = /home/xavi/projects/video-detector
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/161_interop
+WSL_INTEROP = /run/WSL/11_interop
 # makefile (from 'Makefile', line 7)
 OPENCV = `pkg-config --cflags --libs opencv4`
 # environment
@@ -80,11 +80,10 @@ HOME = /home/xavi
 LD_LIBRARY_PATH = /usr/local/lib/
 # environment
 LESSCLOSE = /usr/bin/lesspipe %s %s
- 
 # environment
 LOGNAME = xavi
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -162,9 +161,9 @@ WSL_DISTRO_NAME = Ubuntu-20.04
 
 # Directories
 
-# . (device 2096, inode 42820): 10 files, no impossibilities.
+# . (device 2064, inode 42820): 9 files, no impossibilities.
 
-# 10 files, no impossibilities in 1 directories.
+# 9 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -172,7 +171,7 @@ WSL_DISTRO_NAME = Ubuntu-20.04
 
 # Files
 
-all: build main.o detector.o pushoverapi.o logger.o
+all: build main.o model.o pushoverapi.o logger.o boxdraw.o
 #  Command line target.
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -181,14 +180,7 @@ all: build main.o detector.o pushoverapi.o logger.o
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/8=0%
 #  recipe to execute (from 'Makefile', line 25):
-	$(CC) $(CFLAGS) $(OPTS) $(OPENCV) -o $(BIN)/detect $(OUT_DIR)/main.o $(OUT_DIR)/detector.o $(OUT_DIR)/pushoverapi.o $(OUT_DIR)/logger.o
-
-detector.o: src/detector/detector.cpp src/pushover/pushoverapi.hpp
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 32):
-	$(CC) $(CFLAGS) $(OPTS) $(OPENCV) -c src/detector/detector.cpp -o $(OUT_DIR)/detector.o
+	$(CC) $(OPTS) -o $(BIN)/detect $(OUT_DIR)/main.o $(OUT_DIR)/model.o $(OUT_DIR)/pushoverapi.o $(OUT_DIR)/logger.o $(OUT_DIR)/boxdraw.o $(CFLAGS) $(OPENCV)
 
 # Not a target:
 .SUFFIXES:
@@ -196,27 +188,34 @@ detector.o: src/detector/detector.cpp src/pushover/pushoverapi.hpp
 #  Modification time never checked.
 #  File has not been updated.
 
+ 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-24 18:01:30.734068
+#  Last modified 2022-07-24 20:51:22.32
 #  File has been updated.
 #  Successfully updated.
 
 build:
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-24 18:01:38.694068
+#  Last modified 2022-07-24 20:51:37.16
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 42):
+#  recipe to execute (from 'Makefile', line 46):
 	mkdir -p $(OUT_DIR)
 	mkdir -p $(OUT_DIR)/bin
+
+# Not a target:
+src/detector/boxdraw.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 logger.o: src/logger/logger.cpp
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 38):
+#  recipe to execute (from 'Makefile', line 41):
 	$(CC) $(CFLAGS) $(OPTS) $(OPENCV) -c src/logger/logger.cpp -o $(OUT_DIR)/logger.o
 
 # Not a target:
@@ -229,28 +228,35 @@ pushoverapi.o: src/pushover/pushoverapi.cpp
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 35):
+#  recipe to execute (from 'Makefile', line 38):
 	$(CC) $(CFLAGS) $(OPTS) $(OPENCV) -c src/pushover/pushoverapi.cpp -o $(OUT_DIR)/pushoverapi.o
-
-# Not a target:
-src/detector/detector.cpp:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
 
 clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 46):
+#  recipe to execute (from 'Makefile', line 50):
 	rm -rf $(OUT_DIR)
+
+# Not a target:
+src/detector/model.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 src/main.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-24 17:59:58.971429
+#  Last modified 2022-07-24 19:54:58.13
 #  File has been updated.
 #  Successfully updated.
+
+boxdraw.o: src/detector/boxdraw.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 35):
+	$(CC) $(CFLAGS) $(OPTS) $(OPENCV) -c src/detector/boxdraw.cpp -o $(OUT_DIR)/boxdraw.o
 
 # Not a target:
 src/logger/logger.cpp:
@@ -264,7 +270,7 @@ src/pushover/pushoverapi.cpp:
 #  Modification time never checked.
 #  File has not been updated.
 
-main.o: src/main.cpp src/detector/detector.hpp
+main.o: src/main.cpp src/detector/model.hpp
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: ''
 #  File does not exist.
@@ -277,25 +283,24 @@ main.o: src/main.cpp src/detector/detector.hpp
 # automatic
 # * := 
 # automatic
-# + := src/main.cpp src/detector/detector.hpp
+# + := src/main.cpp src/detector/model.hpp
 # automatic
 # | := 
 # automatic
 # < := src/main.cpp
 # automatic
-# ^ := src/main.cpp src/detector/detector.hpp
+# ^ := src/main.cpp src/detector/model.hpp
 # automatic
-# ? := src/main.cpp src/detector/detector.hpp
+# ? := src/main.cpp src/detector/model.hpp
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/16=6%
 #  recipe to execute (from 'Makefile', line 29):
 	$(CC) $(CFLAGS) $(OPTS) $(OPENCV) -c src/main.cpp -o $(OUT_DIR)/main.o
 
 # Not a target:
-src/detector/detector.hpp:
+src/detector/model.hpp:
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-07-24 15:55:05.114091
+#  Last modified 2022-07-24 20:39:01.67
 #  File has been updated.
 #  Successfully updated.
 
@@ -305,22 +310,27 @@ src/pushover/pushoverapi.hpp:
 #  Modification time never checked.
 #  File has not been updated.
 
+model.o: src/detector/model.cpp src/pushover/pushoverapi.hpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 32):
+	$(CC) $(CFLAGS) $(OPTS) $(OPENCV) -c src/detector/model.cpp -o $(OUT_DIR)/model.o
+
 # files hash-table stats:
-# Load=16/1024=2%, Rehash=0, Collisions=0/44=0%
+# Load=18/1024=2%, Rehash=0, Collisions=3/49=6%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 26 / storage = 312 B / avg = 12 B
-# current buf: size = 8162 B / used = 312 B / count = 26 / avg = 12 B
+# strcache buffers: 1 (0) / strings = 27 / storage = 331 B / avg = 12 B
+# current buf: size = 8162 B / used = 331 B / count = 27 / avg = 12 B
 
- 
-# strcache performance: lookups = 45 / hit rate = 42%
+# strcache performance: lookups = 48 / hit rate = 43%
 # hash-table stats:
- 
-# Load=26/8192=0%, Rehash=0, Collisions=1/45=2%
-# Finished Make data base on Sun Jul 24 18:02:13 2022
+# Load=27/8192=0%, Rehash=0, Collisions=1/48=2%
+# Finished Make data base on Sun Jul 24 20:52:29 2022
 
  

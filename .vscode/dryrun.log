@@ -1,9 +1,10 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory '/home/xavi/projects/video-detector'
 g++ -Wall -g -lcurl -std=c++17 `pkg-config --cflags --libs opencv4` -c src/main.cpp -o build/main.o
-g++ -Wall -g -lcurl -std=c++17 `pkg-config --cflags --libs opencv4` -c src/detector/detector.cpp -o build/detector.o
+g++ -Wall -g -lcurl -std=c++17 `pkg-config --cflags --libs opencv4` -c src/detector/model.cpp -o build/model.o
 g++ -Wall -g -lcurl -std=c++17 `pkg-config --cflags --libs opencv4` -c src/pushover/pushoverapi.cpp -o build/pushoverapi.o
 g++ -Wall -g -lcurl -std=c++17 `pkg-config --cflags --libs opencv4` -c src/logger/logger.cpp -o build/logger.o
-g++ -Wall -g -lcurl -std=c++17 `pkg-config --cflags --libs opencv4` -o build/bin/detect build/main.o build/detector.o build/pushoverapi.o build/logger.o
+g++ -Wall -g -lcurl -std=c++17 `pkg-config --cflags --libs opencv4` -c src/detector/boxdraw.cpp -o build/boxdraw.o
+g++ -std=c++17 -o build/bin/detect build/main.o build/model.o build/pushoverapi.o build/logger.o build/boxdraw.o -Wall -g -lcurl `pkg-config --cflags --libs opencv4`
 make: Leaving directory '/home/xavi/projects/video-detector'
  
