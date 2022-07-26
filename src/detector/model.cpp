@@ -1,34 +1,17 @@
 #include <iostream>
-#include <fstream>
 #include <opencv2/dnn.hpp>
 #include <opencv2/dnn/all_layers.hpp>
 
 #include "model.hpp"
+#include "boxdraw.hpp"
 #include "../pushover/pushoverapi.hpp"
-
-int Model::LoadClassNames() {
-      
-    std::ifstream class_file("../classes.txt");
-    if (!class_file)
-    {
-        std::cerr << "failed to open classes.txt\n";
-        return 1;
-    }
-
-    std::string line;
-    while (std::getline(class_file, line)) {
-        class_names.push_back(line);
-    }
-
-    return 0;    
-}
 
 /* 
     Initialize the ML model used for detecting objects 
 */
 void Model::Initialize() {
     // Initialize model.
-	net = cv::dnn::readNetFromDarknet("../models/yolov4.cfg", "../models/yolov4.weights");	
+	net = cv::dnn::readNetFromDarknet("./models/yolov4.cfg", "./models/yolov4.weights");	
 	net.setPreferableBackend(cv::dnn::DNN_BACKEND_OPENCV);
 	net.setPreferableTarget(cv::dnn::DNN_TARGET_CPU);    
 
@@ -38,7 +21,7 @@ void Model::Initialize() {
 /*
     Predicts an object on a given frame
 */
-std::vector<cv::Mat> Model::Detect(cv::Mat frame) {
+std::vector<cv::Mat> Model::Detect(cv::Mat &frame, BoxDraw *boxDraw) {
 
     std::vector<cv::Mat> detections;
 
@@ -50,6 +33,11 @@ std::vector<cv::Mat> Model::Detect(cv::Mat frame) {
 
     // Start a forward pass and get the output detections.
     net.forward(detections, output_names);
+
+    cv::Mat frameWithBoxes = boxDraw->Draw(detections, frame);
+
+    cv::imwrite("./testingPic.jpg", frame);
+    std::cout << "Image written to disk" << std::endl;
     
     return detections;
 }

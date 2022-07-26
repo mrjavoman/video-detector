@@ -1,4 +1,5 @@
 #include <iostream>
+#include <opencv2/opencv.hpp>
 
 #include "pushoverapi.hpp"
 
@@ -12,7 +13,7 @@ size_t PushoverAPI::WriteCallback(void *contents, size_t size, size_t nmemb, voi
 void PushoverAPI::SendNotification() {
 
     std::string messageText = "Alert: a detection has been made";
-    std::string imagePath = "./testing2.jpg";
+    std::string imagePath = "./testingPic.jpg";
 
     struct curl_httppost* formpost = NULL;
     struct curl_httppost* lastptr = NULL;

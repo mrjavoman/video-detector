@@ -6,6 +6,7 @@
 #include <opencv2/dnn.hpp>
 #include <opencv2/dnn/all_layers.hpp>
 
+#include "boxdraw.hpp"
 #include "../pushover/pushoverapi.hpp"
 
 class Model 
@@ -40,11 +41,9 @@ class Model
         // Model object
         cv::dnn::Net net;
 
-        int LoadClassNames();
-
     public:
         void Initialize();
-        std::vector<cv::Mat> Detect(cv::Mat frame);
+        std::vector<cv::Mat> Detect(cv::Mat &frame, BoxDraw *boxDraw);
 
 };
 

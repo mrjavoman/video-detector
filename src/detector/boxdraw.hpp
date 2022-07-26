@@ -24,11 +24,11 @@ class BoxDraw
             {0, 255, 0},
             {255, 0, 0}
         };
-        static const auto NUM_COLORS = sizeof(colors)/sizeof(colors[0]);
-
+        static const auto NUM_COLORS = sizeof(colors)/sizeof(colors[0]);        
 
     public:
         cv::Mat Draw(std::vector<cv::Mat> &detections, cv::Mat &frame);
+        int LoadClassNames();
 
 };
 
