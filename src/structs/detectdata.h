@@ -15,7 +15,8 @@ struct DetectionData
     std::vector<int> indices[80];
     std::vector<cv::Rect> boxes[80];
     std::vector<float> scores[80];
+    std::unordered_map<std::string, bool> classDetection;
 
-} detectionData;
+};
 
 # endif

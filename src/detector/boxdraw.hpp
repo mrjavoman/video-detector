@@ -29,7 +29,7 @@ class BoxDraw
 
     public:
         DetectionData DetectBox(std::vector<cv::Mat> &detections, cv::Mat &frame);
-        cv::Mat Draw(std::vector<cv::Mat> &detections, cv::Mat &frame);
+        cv::Mat Draw(DetectionData data, cv::Mat &frame);
         int LoadClassNames();
 
 };

@@ -22,7 +22,7 @@ void Model::Initialize() {
 /*
     Predicts an object on a given frame
 */
-std::vector<cv::Mat> Model::Detect(cv::Mat &frame, BoxDraw *boxDraw) {
+DetectionData Model::Detect(cv::Mat &frame, BoxDraw *boxDraw) {
 
     std::vector<cv::Mat> detections;
 
@@ -34,13 +34,16 @@ std::vector<cv::Mat> Model::Detect(cv::Mat &frame, BoxDraw *boxDraw) {
 
     // Start a forward pass and get the output detections.
     net.forward(detections, output_names);
-
-    //DetectionData data = boxDraw->DetectBox(detections,frame);
-
-    cv::Mat frameWithBoxes = boxDraw->Draw(detections, frame);
-
-    cv::imwrite("./testingPic.jpg", frame);
-    std::cout << "Image written to disk" << std::endl;
+    DetectionData data = boxDraw->DetectBox(detections,frame);
+    std::cout << "Found detection " << data.classDetection["Person"] << std::endl; 
     
-    return detections;
+    if(data.classDetection["person"]) {
+        
+        cv::Mat frameWithBoxes = boxDraw->Draw(data, frame);
+
+        cv::imwrite("./testingPic.jpg", frame);
+        std::cout << "Image written to disk" << std::endl;        
+    }
+    
+    return data;
 }

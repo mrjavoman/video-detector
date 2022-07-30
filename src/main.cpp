@@ -4,6 +4,7 @@
 #include "detector/model.hpp"
 #include "detector/boxdraw.hpp"
 #include "logger/logger.hpp"
+#include "structs/detectdata.h"
 
 int main() {
 
@@ -46,10 +47,12 @@ int main() {
 
         // Check detection every 480 frames
         if (frameCount % 480 == 0) {
-            detections = model->Detect(frame, draw);
+            DetectionData data = model->Detect(frame, draw);
 
             // if a detection of intrest has been made send it via pushover
-            pushover->SendNotification();
+            if(data.classDetection["person"]){
+                pushover->SendNotification();
+            }
         }
 
         // Wait 25 milliseconds for frame processing

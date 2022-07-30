@@ -18,15 +18,6 @@ class Model
 
         std::vector<std::string> class_names;
 
-        // // Colors for bounding boxes
-        // const cv::Scalar colors[4] = {
-        //     {0, 255, 255},
-        //     {255, 255, 0},
-        //     {0, 255, 0},
-        //     {255, 0, 0}
-        // };
-        // static const auto NUM_COLORS = sizeof(colors)/sizeof(colors[0]);
-
         // Matrix for holding the image data
         cv::Mat frame;
         // Matrix for holding the image blob that will be used in the AI model
@@ -43,7 +34,7 @@ class Model
 
     public:
         void Initialize();
-        std::vector<cv::Mat> Detect(cv::Mat &frame, BoxDraw *boxDraw);
+        DetectionData Detect(cv::Mat &frame, BoxDraw *boxDraw);
 
 };
 
