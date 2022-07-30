@@ -5,6 +5,7 @@
 #include "model.hpp"
 #include "boxdraw.hpp"
 #include "../pushover/pushoverapi.hpp"
+#include "../structs/detectdata.h"
 
 /* 
     Initialize the ML model used for detecting objects 
@@ -33,6 +34,8 @@ std::vector<cv::Mat> Model::Detect(cv::Mat &frame, BoxDraw *boxDraw) {
 
     // Start a forward pass and get the output detections.
     net.forward(detections, output_names);
+
+    //DetectionData data = boxDraw->DetectBox(detections,frame);
 
     cv::Mat frameWithBoxes = boxDraw->Draw(detections, frame);
 

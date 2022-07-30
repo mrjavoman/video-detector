@@ -7,6 +7,7 @@
 #include <opencv2/dnn/all_layers.hpp>
 
 #include "../pushover/pushoverapi.hpp"
+#include "../structs/detectdata.h"
 
 class BoxDraw 
 {
@@ -27,6 +28,7 @@ class BoxDraw
         static const auto NUM_COLORS = sizeof(colors)/sizeof(colors[0]);        
 
     public:
+        DetectionData DetectBox(std::vector<cv::Mat> &detections, cv::Mat &frame);
         cv::Mat Draw(std::vector<cv::Mat> &detections, cv::Mat &frame);
         int LoadClassNames();
 
