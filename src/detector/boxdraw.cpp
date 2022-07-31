@@ -58,16 +58,9 @@ DetectionData BoxDraw::DetectBox(std::vector<cv::Mat> &detections, cv::Mat &fram
         cv::dnn::NMSBoxes(data.boxes[c], data.scores[c], 0.0, NMS_THRESHOLD, data.indices[c]);
     
 
-    // Show how many detections 
-    // Todo, put detection in hash map to allow for easier handling.
-    std::cout << "Number of detections" << std::endl;
+    // Build a hash map with the detection status for all classes       
     for (int c= 0; c < NUM_CLASSES; c++)
-    {
-        if(data.indices[c].size()) {
-
-            std::cout << "class " << c << " has " << data.indices[c].size() << std::endl;
-        }
-
+    {        
         data.classDetection[class_names[c]] = data.indices[c].size();
     }
 
@@ -88,8 +81,8 @@ cv::Mat BoxDraw::Draw(DetectionData data, cv::Mat &frame) {
             const auto& rect = data.boxes[c][idx];
             cv::rectangle(frame, cv::Point(rect.x, rect.y), cv::Point(rect.x + rect.width, rect.y + rect.height), color, 3);
 
-            std::cout << c << " and " << i << std::endl;
-            std::cout << class_names.size() << std::endl;
+            // std::cout << c << " and " << i << std::endl;
+            // std::cout << class_names.size() << std::endl;
             std::ostringstream label_ss;
             label_ss << class_names[c] << ": " << std::fixed << std::setprecision(2) << data.scores[c][idx];
             auto label = label_ss.str();

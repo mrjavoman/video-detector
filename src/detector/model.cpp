@@ -35,15 +35,6 @@ DetectionData Model::Detect(cv::Mat &frame, BoxDraw *boxDraw) {
     // Start a forward pass and get the output detections.
     net.forward(detections, output_names);
     DetectionData data = boxDraw->DetectBox(detections,frame);
-    std::cout << "Found detection " << data.classDetection["Person"] << std::endl; 
-    
-    if(data.classDetection["person"]) {
-        
-        cv::Mat frameWithBoxes = boxDraw->Draw(data, frame);
-
-        cv::imwrite("./testingPic.jpg", frame);
-        std::cout << "Image written to disk" << std::endl;        
-    }
     
     return data;
 }

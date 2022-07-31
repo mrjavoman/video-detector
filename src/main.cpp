@@ -28,8 +28,7 @@ int main() {
     Model *model = new Model();
     model->Initialize();
 
-    // Initialize Pushover API
-    PushoverAPI *pushover = new PushoverAPI();
+    
 
     // Initialize object for drawing boxes on detections
     BoxDraw *draw = new BoxDraw();
@@ -51,13 +50,27 @@ int main() {
 
             // if a detection of intrest has been made send it via pushover
             if(data.classDetection["person"]){
+
+                // Initialize Pushover API
+                PushoverAPI *pushover = new PushoverAPI();
+
+                // Draw box around detection
+                cv::Mat frameWithBoxes = draw->Draw(data, frame);
+
+                // Write file to disk
+                cv::imwrite("./testingPic.jpg", frame);
+                std::cout << "Image written to disk" << std::endl;        
+                
+                // Send the notification via Pushover
                 pushover->SendNotification();
+                delete pushover;
             }
         }
 
         // Wait 25 milliseconds for frame processing
         char c = (char)cv::waitKey(25);
-
+        //Logger::Log("Hellooo!");
+           
         // Exit if 'Esc' button is pressed
         if(c == 27) {
             break;
@@ -69,10 +82,7 @@ int main() {
     // Release memory
     cap.release();
     delete model;
-    delete pushover;
     delete draw;
-
-    Logger::Log("Hellooo!");
 
     return 0;
 }

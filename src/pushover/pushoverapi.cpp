@@ -6,7 +6,6 @@
 
 size_t PushoverAPI::WriteCallback(void *contents, size_t size, size_t nmemb, void *userp) {
     ((std::string*)userp)->append((char*)contents, size * nmemb);
-     std::cout << "Here 2" << std::endl;
     return size * nmemb;
 }
 
@@ -67,7 +66,7 @@ void PushoverAPI::SendNotification() {
 
 
     curl_formfree(formpost);
-    std::cout << "Here" << std::endl;
+    // std::cout << "Here" << std::endl;
     curl_easy_cleanup(curl);
     //curl_slist_free_all(headerlist);
 
