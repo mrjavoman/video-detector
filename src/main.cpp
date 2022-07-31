@@ -6,7 +6,9 @@
 #include "logger/logger.hpp"
 #include "structs/detectdata.h"
 
-int main() {
+int main(int argc, char ** argv) {
+
+    // Read configration
 
     // Matrix for holding the image data
     cv::Mat frame;
@@ -16,7 +18,6 @@ int main() {
     std::vector<cv::Mat> detections;
 
     int frameCount = 0;
-	//bool imageWritten = true;
 
     if(!cap.isOpened()) {
         std::cout << "No video stream detected" << std::endl;
@@ -27,8 +28,6 @@ int main() {
     // Initialize the detection model
     Model *model = new Model();
     model->Initialize();
-
-    
 
     // Initialize object for drawing boxes on detections
     BoxDraw *draw = new BoxDraw();
