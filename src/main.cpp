@@ -5,10 +5,21 @@
 #include "detector/boxdraw.hpp"
 #include "logger/logger.hpp"
 #include "structs/detectdata.h"
+#include "configuration/config.hpp"
 
 int main(int argc, char ** argv) {
 
-    // Read configration
+    // Read configration 
+    // Testing loading parameters
+    // ConfigParams params = Params::Read();
+
+    // Logger::Log(params.pushoverUser);
+
+    // for(std::string dClass : params.detectionClasses) {
+    //     Logger::Log(dClass);
+    // }
+
+    // return 0;
 
     // Matrix for holding the image data
     cv::Mat frame;

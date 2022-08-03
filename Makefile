@@ -21,11 +21,11 @@ LFLAGS = $(shell curl-config --libs)
 OUT_DIR = build
 BIN = $(OUT_DIR)/bin
 
-all: $(OUT_DIR) main.o model.o pushoverapi.o logger.o boxdraw.o
-	$(CC) $(OPTS) -o $(BIN)/detect $(OUT_DIR)/main.o $(OUT_DIR)/model.o $(OUT_DIR)/pushoverapi.o $(OUT_DIR)/logger.o $(OUT_DIR)/boxdraw.o $(INCLUDES) $(LFLAGS) $(CFLAGS) $(OPENCV)
+all: $(OUT_DIR) main.o model.o pushoverapi.o logger.o boxdraw.o config.o
+	$(CC) $(OPTS) -o $(BIN)/detect $(OUT_DIR)/main.o $(OUT_DIR)/model.o $(OUT_DIR)/pushoverapi.o $(OUT_DIR)/logger.o $(OUT_DIR)/boxdraw.o $(OUT_DIR)/config.o $(INCLUDES) $(LFLAGS) $(CFLAGS) $(OPENCV)
 
 # Create the object files for the executable
-main.o: src/main.cpp src/detector/model.hpp
+main.o: src/main.cpp src/detector/model.hpp src/configuration/config.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) $(LFLAGS) $(OPTS) $(OPENCV) -c src/main.cpp -o $(OUT_DIR)/main.o
 
 model.o: src/detector/model.cpp src/pushover/pushoverapi.hpp
@@ -39,6 +39,9 @@ pushoverapi.o: src/pushover/pushoverapi.cpp
 
 logger.o: src/logger/logger.cpp
 	$(CC) $(CFLAGS) $(OPTS) $(OPENCV) -c src/logger/logger.cpp -o $(OUT_DIR)/logger.o
+
+config.o: src/configuration/config.cpp
+	$(CC) $(CFLAGS) $(OPTS) $(OPENCV) -c src/configuration/config.cpp -o $(OUT_DIR)/config.o
 
 
 # Create buid directory

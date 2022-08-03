@@ -10,7 +10,7 @@ struct ConfigParams
     std::string pushoverToken;
     std::string classesFile;
     int confidenceThreshold;
-    int NMSThreashold;
+    double NMSThreashold;
     std::vector<std::string> detectionClasses;
 };
 

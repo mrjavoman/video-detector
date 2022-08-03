@@ -8,7 +8,7 @@ class Params
     private:
 
     public:
-        ConfigParams Read(std::string params = "config.cfg");        
+        static ConfigParams Read(std::string configFile = "./config.cfg");        
 
 };
 
